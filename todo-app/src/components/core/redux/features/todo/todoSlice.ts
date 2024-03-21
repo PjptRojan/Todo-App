@@ -1,5 +1,4 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
-
 interface Todo {
   id: string;
   text: string;
