@@ -8,11 +8,23 @@ interface Todo {
   text: string;
 }
 
-function Todos() {
+interface Iprops {
+  input: string;
+  setInput: (value: string) => void;
+  buttonClicked: boolean;
+  setButtonClicked: (value: boolean) => void;
+  setTodoId: React.Dispatch<React.SetStateAction<string>>;
+}
+function Todos(props: Iprops) {
+  const { setInput, buttonClicked, setButtonClicked, setTodoId } = props;
   const dispatch = useDispatch();
   const todos = useSelector((state: any) => state.todos);
 
-  const handleEditClick = () => {};
+  const handleEditClick = (text: string, id: string) => {
+    setInput(text);
+    setButtonClicked(!buttonClicked);
+    setTodoId(id);
+  };
 
   return (
     <div>
@@ -32,7 +44,7 @@ function Todos() {
                 <RiDeleteBin6Line style={{ fontSize: "18px" }} />
               </button>
               <button
-                onClick={handleEditClick}
+                onClick={() => handleEditClick(todo.text, todo.id)}
                 className="bg-[#44bd48] p-2 rounded-sm hover:bg-green-600 transition duration-300 ease-in-out"
               >
                 <MdEdit style={{ fontSize: "18px", color: "#fff" }} />
